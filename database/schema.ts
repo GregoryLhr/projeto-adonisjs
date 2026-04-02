@@ -32,6 +32,48 @@ export class AuthAccessTokenSchema extends BaseModel {
   declare updatedAt: DateTime | null
 }
 
+export class CategorySchema extends BaseModel {
+  static $columns = ['createdAt', 'deletedAt', 'id', 'name', 'updatedAt'] as const
+  $columns = CategorySchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare name: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+}
+
+export class ProductSchema extends BaseModel {
+  static $columns = ['categoryId', 'createdAt', 'deletedAt', 'id', 'maximumQuantity', 'minimumQuantity', 'name', 'quantity', 'unitPrice', 'unitType', 'updatedAt'] as const
+  $columns = ProductSchema.$columns
+  @column()
+  declare categoryId: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare maximumQuantity: string
+  @column()
+  declare minimumQuantity: string
+  @column()
+  declare name: string
+  @column()
+  declare quantity: string
+  @column()
+  declare unitPrice: number
+  @column()
+  declare unitType: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+}
+
 export class UserSchema extends BaseModel {
   static $columns = ['createdAt', 'email', 'fullName', 'id', 'password', 'updatedAt'] as const
   $columns = UserSchema.$columns
