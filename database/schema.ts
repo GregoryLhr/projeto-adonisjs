@@ -47,6 +47,25 @@ export class CategorySchema extends BaseModel {
   declare updatedAt: DateTime
 }
 
+export class MoveSchema extends BaseModel {
+  static $columns = ['createdAt', 'id', 'productId', 'quantity', 'type', 'unitPrice', 'userId'] as const
+  $columns = MoveSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare productId: string
+  @column()
+  declare quantity: string
+  @column()
+  declare type: string
+  @column()
+  declare unitPrice: number
+  @column()
+  declare userId: number
+}
+
 export class ProductSchema extends BaseModel {
   static $columns = ['categoryId', 'createdAt', 'deletedAt', 'id', 'maximumQuantity', 'minimumQuantity', 'name', 'quantity', 'unitPrice', 'unitType', 'updatedAt'] as const
   $columns = ProductSchema.$columns
@@ -75,18 +94,26 @@ export class ProductSchema extends BaseModel {
 }
 
 export class UserSchema extends BaseModel {
-  static $columns = ['createdAt', 'email', 'fullName', 'id', 'password', 'updatedAt'] as const
+  static $columns = ['avatar', 'createdAt', 'deletedAt', 'email', 'id', 'isAdmin', 'name', 'password', 'token', 'updatedAt'] as const
   $columns = UserSchema.$columns
+  @column()
+  declare avatar: string | null
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
+  @column.dateTime()
+  declare deletedAt: DateTime | null
   @column()
   declare email: string
-  @column()
-  declare fullName: string | null
   @column({ isPrimary: true })
   declare id: number
+  @column()
+  declare isAdmin: boolean
+  @column()
+  declare name: string | null
   @column({ serializeAs: null })
   declare password: string
+  @column()
+  declare token: string | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
