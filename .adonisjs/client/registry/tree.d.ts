@@ -14,6 +14,10 @@ export interface ApiDefinition {
   profile: {
     profile: {
       show: typeof routes['profile.profile.show']
+      uploadAvatar: typeof routes['profile.profile.upload_avatar']
     }
+  }
+  users: {
+    index: typeof routes['users.index']
   }
 }

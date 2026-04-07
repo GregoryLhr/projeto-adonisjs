@@ -11,10 +11,6 @@ import { middleware } from '#start/kernel'
 import router from '@adonisjs/core/services/router'
 import { controllers } from '#generated/controllers'
 
-router.get('/', () => {
-  return { hello: 'world' }
-})
-
 router
   .group(() => {
     router
@@ -29,9 +25,17 @@ router
     router
       .group(() => {
         router.get('/profile', [controllers.Profile, 'show'])
+        router.post('/avatar', [controllers.Profile, 'uploadAvatar'])
       })
       .prefix('account')
       .as('profile')
       .use(middleware.auth())
+
+    router
+      .group(() => {
+        router.get('/', [controllers.Users, 'index'])
+      })
+      .prefix('users')
+      .use(middleware.auth())
   })
-  .prefix('/api/v1')
+  .prefix('/api')
